@@ -5,6 +5,8 @@ import Drawer from '@mui/material/Drawer';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@mui/icons-material';
 import { useHistory, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar } from '@mui/material';
+import { format } from 'date-fns';
 
 const drawerWidth = 240;
 
@@ -29,6 +31,13 @@ const useStyles = makeStyles ((theme) => {
     },
     title: {
         padding: theme.spacing(2)
+    },
+    appbar: {
+        width: `calc(100% - ${drawerWidth}px)`
+    },
+    toolbar: theme.mixins.toolbar,
+    date: {
+        flexGrow: 1
     }
     }
 })
@@ -55,6 +64,19 @@ export default function Layout({ children }) {
     return (
         <div className={classes.root}>
             {/* app bar */}
+            <AppBar
+                className={classes.appbar}
+                elevation={0}
+            >
+                <Toolbar>
+                    <Typography className={classes.date}>
+                        Welcome { format(new Date(), 'do MMMM Y') }
+                    </Typography>
+                    <Typography>
+                        Mario
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
             {/* side drawer */}
             <Drawer
@@ -87,6 +109,7 @@ export default function Layout({ children }) {
             </Drawer>
 
             <div className = { classes.page }>
+                <div className={classes.toolbar}></div>
                 { children }
             </div>
         </div>
